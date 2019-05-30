@@ -38,7 +38,7 @@ namespace CountXMLSize
                             CheckCount(itemsFromXml);
                            
                         }
-                        if (elementName == "Object ")
+                        if (elementName == "Object")
                         {
                             itemsFromXml.Add(readItem(itemsParser, myReader));
                             CheckCount(itemsFromXml);
