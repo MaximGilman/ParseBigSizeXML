@@ -20,6 +20,7 @@ namespace CountXMLSize
             List<House> HousesFromXml = new List<House>();
             int milCounter = 1;
             var path = @"";
+            XMLParser < House > parser = new XMLParser<House>();
             using (XmlReader myReader = XmlReader.Create(path))
             {
                 Console.WriteLine("Start Reading...");
@@ -32,7 +33,7 @@ namespace CountXMLSize
                         if (elementName == "House")
                         {
                             House house = new House();
-                            HousesFromXml.Add(house.SetAllValues(myReader));
+                            HousesFromXml.Add(parser.SetAllValues(myReader));
 
                             if (HousesFromXml.Count() / (1000000) > 0)
                             {
