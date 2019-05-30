@@ -13,14 +13,16 @@ namespace CountXMLSize
 {
     class Program
     {
+
+        static int milCounter = 1;
         static void Main(string[] args)
         {
             string elementName;
 
-            List<House> HousesFromXml = new List<House>();
-            int milCounter = 1;
+
             var path = @"";
-            XMLParser < House > parser = new XMLParser<House>();
+            List<IXMLParserable> itemsFromXml = new List<IXMLParserable>();
+            XMLParser<IXMLParserable> itemsParser = new XMLParser<IXMLParserable>(new AddressObject());
             using (XmlReader myReader = XmlReader.Create(path))
             {
                 Console.WriteLine("Start Reading...");
@@ -32,21 +34,16 @@ namespace CountXMLSize
                         elementName = myReader.Name; // the name of the current element
                         if (elementName == "House")
                         {
-                            House house = new House();
-                            HousesFromXml.Add(parser.SetAllValues(myReader));
-
-                            if (HousesFromXml.Count() / (1000000) > 0)
-                            {
-                                Console.WriteLine("Move above million -" + HousesFromXml.Count()*milCounter);
-                                milCounter++;
-
-                                Console.WriteLine("Write to File...");
-
-                                WriteToSCV(HousesFromXml);
-                                HousesFromXml = new List<House>();
-                            }
+                            itemsFromXml.Add(readItem(itemsParser, myReader));
+                            CheckCount(itemsFromXml);
+                           
                         }
-
+                        if (elementName == "Object ")
+                        {
+                            itemsFromXml.Add(readItem(itemsParser, myReader));
+                            CheckCount(itemsFromXml);
+                            
+                        }
 
                     }
 
@@ -65,44 +62,43 @@ namespace CountXMLSize
 
         }
 
+       
+        private static IXMLParserable readItem(XMLParser<IXMLParserable> parser, XmlReader myReader)
+        {
 
-        // Concurrently do other work and then wait 
-        // for the data to be written and verified.
-    
-    static   void EndWrite(IAsyncResult asyncResult)
-    {
-        FileStream fStream = (FileStream)asyncResult.AsyncState;
-        fStream.EndWrite(asyncResult);
-        fStream.Close();
-    }
-    private   static void WriteProcces(List<House> housesFromXml, char separator = '\n')
-        {
-            FileStream sourceStream = new FileStream("House.csv",
-          FileMode.Append, FileAccess.Write, FileShare.None,
-          bufferSize: 4096, useAsync: true);
-            
-                foreach (var item in housesFromXml)
-                {
-                    byte[] encodedText = Encoding.Unicode.GetBytes(item.ToString() + separator);
-                    IAsyncResult asyncResult = sourceStream.BeginWrite(
-                                   encodedText, 0, encodedText.Length,
-                                   new AsyncCallback(EndWrite),
-                                   sourceStream);
-                }
-                
-             
+            House house = new House();
+            return parser.SetAllValues(myReader);
+
+
         }
-        private static void WriteToSCV(List<House> housesFromXml,char separator = '\n')
+
+        
+
+        private static void CheckCount<T>(IEnumerable<T> collection, int ceil = 1000000)
         {
+            if (collection.Count() / (ceil) > 0)
+            {
+                Console.WriteLine(@"Move above {ceil} -" + collection.Count() * milCounter);
+                milCounter++;
+
+                Console.WriteLine("Write to File...");
+                WriteToSCV(collection);
+                collection = new List<T>();
+
+            }
+        }
+        private static void WriteToSCV<T>(IEnumerable<T> itemsFromXml, char separator = '\n')
+        {
+            string path = (itemsFromXml.First() is House) ? "House.csv" : "AddressObject.csv";
             using (StreamWriter f = File.AppendText("House.csv"))
             {
-                foreach (var item in housesFromXml)
+                foreach (var item in itemsFromXml)
                 {
                     f.WriteLine(item.ToString() + separator);
                 }
                 f.Close();
             }
-            
+
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Xml;
 
 namespace CountXMLSize
 {
-    class House
+    class House : IXMLParserable
     {
         string POSTALCODE;
         string REGIONCODE;

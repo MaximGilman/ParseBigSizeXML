@@ -6,7 +6,7 @@ using System.Xml;
 
 namespace CountXMLSize
 {
-    class XMLParser<T> where  T : new()
+    class XMLParser<T> 
     {
 
         public T itemForParse;
@@ -15,10 +15,7 @@ namespace CountXMLSize
         {
             this.itemForParse = itemForParse;
         }
-        public XMLParser()
-        {
-            itemForParse = new T();
-        }
+        
 
         public T SetAllValues(XmlReader xmlreader)
         {
