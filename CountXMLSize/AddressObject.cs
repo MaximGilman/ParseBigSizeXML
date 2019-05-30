@@ -18,16 +18,16 @@ namespace CountXMLSize
         string OKATO;
         string OKTMO;
         DateTime UPDATEDATE;
-        string   SHORTNAME;
-        int      AOLEVEL;
-        string   PARENTGUID;
-        string   AOID;
-        string   PREVID;
-        string   NEXTID;
-        string   CODE;
-        int      ACTSTATUS;
-        int      LIVESTATUS;
-        int      CENTSTATUS;
+        string SHORTNAME;
+        int AOLEVEL;
+        string PARENTGUID;
+        string AOID;
+        string PREVID;
+        string NEXTID;
+        string CODE;
+        int ACTSTATUS;
+        int LIVESTATUS;
+        int CENTSTATUS;
         DateTime STARTDATE;
         DateTime ENDDATE;
         public AddressObject() { }
@@ -39,8 +39,8 @@ namespace CountXMLSize
 
         private string ConcatToCSV(char separator = ',')
         {
-            
-            return 
+
+            return
                 $" {this.AOGUID.AddCommas()}{separator}" +
                 $" {this.FORMALNAME.AddCommas()}{separator}" +
                 $" {this.REGIONCODE.AddCommas()}{separator}" +
@@ -51,7 +51,7 @@ namespace CountXMLSize
                 $" {this.STREETCODE.AddCommas()}{separator}" +
                 $" {this.OFFNAME.AddCommas()}{separator}" +
                 $" {this.OKATO.AddCommas()}{separator}" +
-                $" {this.OKTMO.AddCommas()}"+
+                $" {this.OKTMO.AddCommas()}" +
 
                 $" {this.UPDATEDATE.ToShortDateString().AddCommas()}{separator}" +
                 $" {this.SHORTNAME.AddCommas()}{separator}" +
@@ -61,10 +61,10 @@ namespace CountXMLSize
                 $" {this.PREVID.AddCommas()}{separator}" +
                 $" {this.NEXTID.AddCommas()}{separator}" +
                 $" {this.CODE.AddCommas()}{separator}" +
-                $" {this.ACTSTATUS .ToString().AddCommas()}{separator}" +
+                $" {this.ACTSTATUS.ToString().AddCommas()}{separator}" +
                 $" {this.LIVESTATUS.ToString().AddCommas()}{separator}" +
-                $" {this.CENTSTATUS.ToString().AddCommas()}"+
-            $" {this.STARTDATE.ToShortDateString().AddCommas()}"+
+                $" {this.CENTSTATUS.ToString().AddCommas()}" +
+            $" {this.STARTDATE.ToShortDateString().AddCommas()}" +
             $" {this.ENDDATE.ToShortDateString().AddCommas()}";
 
         }

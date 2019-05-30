@@ -9,28 +9,28 @@ namespace CountXMLSize
     class XMLParser<T> 
     {
 
-        public T itemForParse;
+       
 
-        public XMLParser(T itemForParse)
+        public XMLParser()
         {
-            this.itemForParse = itemForParse;
+           
         }
         
 
-        public T SetAllValues(XmlReader xmlreader)
+        public T SetAllValues(XmlReader xmlreader, T itemForParse)
         {
             foreach (var item in itemForParse.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance))
             {
                 var fieldName = item.Name;
                 var fieldValue = xmlreader.GetAttribute(fieldName);
 
-                SetValueFromName(fieldName, fieldValue);
+                SetValueFromName(fieldName, fieldValue,  itemForParse);
             }
             return itemForParse;
         }
-        public void SetValueFromName(string fieldName, string fieldValue)
+        public void SetValueFromName(string fieldName, string fieldValue, T itemForParse)
         {
-            var field = GetFieldFromName(fieldName);
+            var field = GetFieldFromName(fieldName, itemForParse);
 
             var typeName = field.FieldType.Name;
             switch (typeName)
@@ -53,7 +53,7 @@ namespace CountXMLSize
                 default: { field.SetValue(itemForParse, fieldValue); break; }
             }
         }
-        private FieldInfo GetFieldFromName(string fieldName)
+        private FieldInfo GetFieldFromName(string fieldName, T itemForParse)
         {
             return itemForParse.GetType().GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance);
 

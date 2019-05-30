@@ -13,16 +13,20 @@ namespace CountXMLSize
 {
     class Program
     {
+       static string pathToCSV = "value.csv";
 
         static int milCounter = 1;
+        static List<IXMLParserable> itemsFromXml = new List<IXMLParserable>();
         static void Main(string[] args)
         {
+            File.Delete(pathToCSV);
             string elementName;
 
-
+            //var type = new House();
+           var type = new AddressObject();
             var path = @"";
-            List<IXMLParserable> itemsFromXml = new List<IXMLParserable>();
-            XMLParser<IXMLParserable> itemsParser = new XMLParser<IXMLParserable>(new AddressObject());
+            
+            XMLParser<IXMLParserable> itemsParser = new XMLParser<IXMLParserable>();
             using (XmlReader myReader = XmlReader.Create(path))
             {
                 Console.WriteLine("Start Reading...");
@@ -32,18 +36,14 @@ namespace CountXMLSize
                     if (myReader.NodeType == XmlNodeType.Element)
                     {
                         elementName = myReader.Name; // the name of the current element
-                        if (elementName == "House")
+
+
+                        if (elementName == "House"|| elementName == "Object" )
                         {
-                            itemsFromXml.Add(readItem(itemsParser, myReader));
+                            readItem(itemsParser, myReader, type);
                             CheckCount(itemsFromXml);
-                           
                         }
-                        if (elementName == "Object")
-                        {
-                            itemsFromXml.Add(readItem(itemsParser, myReader));
-                            CheckCount(itemsFromXml);
-                            
-                        }
+                        
 
                     }
 
@@ -63,11 +63,11 @@ namespace CountXMLSize
         }
 
        
-        private static IXMLParserable readItem(XMLParser<IXMLParserable> parser, XmlReader myReader)
+        private static void readItem(XMLParser<IXMLParserable> parser, XmlReader myReader, IXMLParserable item)
         {
 
-            House house = new House();
-            return parser.SetAllValues(myReader);
+
+            itemsFromXml.Add(parser.SetAllValues(myReader, item));
 
 
         }
@@ -78,23 +78,24 @@ namespace CountXMLSize
         {
             if (collection.Count() / (ceil) > 0)
             {
-                Console.WriteLine(@"Move above {ceil} -" + collection.Count() * milCounter);
+                Console.WriteLine($"Move above {ceil} -" + collection.Count() * milCounter);
                 milCounter++;
 
                 Console.WriteLine("Write to File...");
                 WriteToSCV(collection);
                 collection = new List<T>();
-
+                
             }
         }
         private static void WriteToSCV<T>(IEnumerable<T> itemsFromXml, char separator = '\n')
         {
-            string path = (itemsFromXml.First() is House) ? "House.csv" : "AddressObject.csv";
-            using (StreamWriter f = File.AppendText("House.csv"))
+            
+          
+            using (StreamWriter f = File.AppendText(pathToCSV))
             {
                 foreach (var item in itemsFromXml)
                 {
-                    f.WriteLine(item.ToString() + separator);
+                    f.Write(item.ToString() + separator);
                 }
                 f.Close();
             }
