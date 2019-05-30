@@ -13,7 +13,7 @@ namespace CountXMLSize
 {
     class Program
     {
-       static string pathToCSV = "value.csv";
+        static string pathToCSV = "value.csv";
 
         static int milCounter = 1;
         static List<IXMLParserable> itemsFromXml = new List<IXMLParserable>();
@@ -22,10 +22,10 @@ namespace CountXMLSize
             File.Delete(pathToCSV);
             string elementName;
 
-            //var type = new House();
-           var type = new AddressObject();
+            var type = new House();
+           // var type = new AddressObject();
             var path = @"";
-            
+
             XMLParser<IXMLParserable> itemsParser = new XMLParser<IXMLParserable>();
             using (XmlReader myReader = XmlReader.Create(path))
             {
@@ -38,12 +38,12 @@ namespace CountXMLSize
                         elementName = myReader.Name; // the name of the current element
 
 
-                        if (elementName == "House"|| elementName == "Object" )
+                        if (elementName == "House" || elementName == "Object")
                         {
                             readItem(itemsParser, myReader, type);
                             CheckCount(itemsFromXml);
                         }
-                        
+
 
                     }
 
@@ -62,17 +62,19 @@ namespace CountXMLSize
 
         }
 
-       
+
         private static void readItem(XMLParser<IXMLParserable> parser, XmlReader myReader, IXMLParserable item)
         {
-
+            var isHouse = item is House;
+            if (isHouse) item = new House();
+            else item = new AddressObject();
 
             itemsFromXml.Add(parser.SetAllValues(myReader, item));
 
 
         }
 
-        
+
 
         private static void CheckCount<T>(IEnumerable<T> collection, int ceil = 1000000)
         {
@@ -83,14 +85,14 @@ namespace CountXMLSize
 
                 Console.WriteLine("Write to File...");
                 WriteToSCV(collection);
-                collection = new List<T>();
-                
+                itemsFromXml = new List<IXMLParserable>();
+
             }
         }
         private static void WriteToSCV<T>(IEnumerable<T> itemsFromXml, char separator = '\n')
         {
-            
-          
+
+
             using (StreamWriter f = File.AppendText(pathToCSV))
             {
                 foreach (var item in itemsFromXml)
