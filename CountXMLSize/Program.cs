@@ -19,7 +19,8 @@ namespace CountXMLSize
 
             List<House> HousesFromXml = new List<House>();
             int milCounter = 1;
-            using (XmlReader myReader = XmlReader.Create(@"AS_HOUSE_20190519_842e11dc-5c02-4250-baf1-4b03b38b3d6a.xml"))
+            var path = @"";
+            using (XmlReader myReader = XmlReader.Create(path))
             {
                 Console.WriteLine("Start Reading...");
                 while (myReader.Read())
