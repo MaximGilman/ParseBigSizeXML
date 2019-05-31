@@ -58,17 +58,17 @@ namespace CountXMLSize
               ENDDATE  
               */
             return $"{this.REGIONCODE.AddCommas()}{separator}" +
-                $" {this.OKATO.AddCommas()}{separator}" +
-                 $" {this.UPDATEDATE.ToShortDateString().AddCommas()}{separator}" +
-                  $" {this.HOUSENUM.AddCommas()}{separator}" +
-                   $" {this.ESTSTATUS.ToString().AddCommas()}{separator}" +
-                    $" {this.BUILDNUM.AddCommas()}{separator}" +
-                    $" {this.STRUCNUM.AddCommas()}{separator}" +
-                    $" {this.HOUSEID.AddCommas()}{separator}" +
-                    $" {this.HOUSEGUID.AddCommas()}{separator}" +
-                    $" {this.AOGUID.AddCommas()}{separator}" +
- $" {this.STARTDATE.ToShortDateString().AddCommas()}{separator}" +
- $" {this.ENDDATE.ToShortDateString().AddCommas()}";
+                $"{this.OKATO.AddCommas()}{separator}" +
+                 $"{this.UPDATEDATE.ToShortDateString().AddCommas()}{separator}" +
+                  $"{this.HOUSENUM.AddCommas()}{separator}" +
+                   $"{this.ESTSTATUS.ToString().AddCommas()}{separator}" +
+                    $"{this.BUILDNUM.AddCommas()}{separator}" +
+                    $"{this.STRUCNUM.AddCommas()}{separator}" +
+                    $"{this.HOUSEID.AddCommas()}{separator}" +
+                    $"{this.HOUSEGUID.AddCommas()}{separator}" +
+                    $"{this.AOGUID.AddCommas()}{separator}" +
+ $"{this.STARTDATE.ToShortDateString().AddCommas()}{separator}" +
+ $"{this.ENDDATE.ToShortDateString().AddCommas()}";
 
 
 

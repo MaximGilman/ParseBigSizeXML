@@ -30,6 +30,7 @@ namespace CountXMLSize
         int CENTSTATUS;
         DateTime STARTDATE;
         DateTime ENDDATE;
+        int DIVTYPE;
         public AddressObject() { }
 
         public override string ToString()
@@ -41,31 +42,32 @@ namespace CountXMLSize
         {
 
             return
-                $" {this.AOGUID.AddCommas()}{separator}" +
-                $" {this.FORMALNAME.AddCommas()}{separator}" +
-                $" {this.REGIONCODE.AddCommas()}{separator}" +
-                $" {this.AUTOCODE.AddCommas()}{separator}" +
-                $" {this.AREACODE.AddCommas()}{separator}" +
-                $" {this.CITYCODE.AddCommas()}{separator}" +
-                $" {this.PLACECODE.AddCommas()}{separator}" +
-                $" {this.STREETCODE.AddCommas()}{separator}" +
-                $" {this.OFFNAME.AddCommas()}{separator}" +
-                $" {this.OKATO.AddCommas()}{separator}" +
-                $" {this.OKTMO.AddCommas()}" +
+                $"{this.AOGUID.AddCommas()}{separator}" +
+                $"{this.FORMALNAME.AddCommas()}{separator}" +
+                $"{this.REGIONCODE.AddCommas()}{separator}" +
+                $"{this.AUTOCODE.AddCommas()}{separator}" +
+                $"{this.AREACODE.AddCommas()}{separator}" +
+                $"{this.CITYCODE.AddCommas()}{separator}" +
+                $"{this.PLACECODE.AddCommas()}{separator}" +
+                $"{this.STREETCODE.AddCommas()}{separator}" +
+                $"{this.OFFNAME.AddCommas()}{separator}" +
+                $"{this.OKATO.AddCommas()}{separator}" +
+                $"{this.OKTMO.AddCommas()}{separator}" +
 
-                $" {this.UPDATEDATE.ToShortDateString().AddCommas()}{separator}" +
-                $" {this.SHORTNAME.AddCommas()}{separator}" +
-                $" {this.AOLEVEL.ToString().AddCommas()}{separator}" +
-                $" {this.PARENTGUID.AddCommas()}{separator}" +
-                $" {this.AOID.AddCommas()}{separator}" +
-                $" {this.PREVID.AddCommas()}{separator}" +
-                $" {this.NEXTID.AddCommas()}{separator}" +
-                $" {this.CODE.AddCommas()}{separator}" +
-                $" {this.ACTSTATUS.ToString().AddCommas()}{separator}" +
-                $" {this.LIVESTATUS.ToString().AddCommas()}{separator}" +
-                $" {this.CENTSTATUS.ToString().AddCommas()}" +
-            $" {this.STARTDATE.ToShortDateString().AddCommas()}" +
-            $" {this.ENDDATE.ToShortDateString().AddCommas()}";
+                $"{this.UPDATEDATE.ToShortDateString().AddCommas()}{separator}" +
+                $"{this.SHORTNAME.AddCommas()}{separator}" +
+                $"{this.AOLEVEL.ToString().AddCommas()}{separator}" +
+                $"{this.PARENTGUID.AddCommas()}{separator}" +
+                $"{this.AOID.AddCommas()}{separator}" +
+                $"{this.PREVID.AddCommas()}{separator}" +
+                $"{this.NEXTID.AddCommas()}{separator}" +
+                $"{this.CODE.AddCommas()}{separator}" +
+                $"{this.ACTSTATUS.ToString().AddCommas()}{separator}" +
+                $"{this.LIVESTATUS.ToString().AddCommas()}{separator}" +
+                $"{this.CENTSTATUS.ToString().AddCommas()}{separator}" +
+            $"{this.STARTDATE.ToShortDateString().AddCommas()}{separator}" +
+            $"{this.ENDDATE.ToShortDateString().AddCommas()}{separator}" 
+            + $"{this.DIVTYPE.ToString().AddCommas()}"; ;
 
         }
     }
